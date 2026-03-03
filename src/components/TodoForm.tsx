@@ -4,7 +4,11 @@ import type { TodoStatus } from "../interfaces/TodoInterface";
 import type { ErrorData } from "../interfaces/ErrorData";
 import * as Yup from "yup";
 
-function TodoForm() {
+interface TodoFormProp {
+    addTodo: (todo: Omit<TodoInterface, 'id' | 'created_at' | 'updated_at'>) => Promise<void>;
+}
+
+function TodoForm({addTodo}: TodoFormProp) {
 
     const [todoData, setTodoData] = useState<Omit<TodoInterface, 'id' | 'created_at' | 'updated_at'>>({
         title: '',
@@ -26,40 +30,14 @@ function TodoForm() {
     async function submitForm(event: any) {
         event.preventDefault();
 
-        // Validering via Yup
+        
         try {
+            // Validering via Yup
             await validationSchema.validate(todoData, { abortEarly: false });
 
             
-
-            // Ajax-anrop
-            let url = 'https://tois-dt210g-moment2-backend.onrender.com/todos';
-
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(todoData)
-            });
-
+            await addTodo(todoData);
             
-
-            if(!response.ok) {
-                throw new Error('Serverfel');
-            } else {
-                const data = await response.json();
-
-                setTodoData(data);
-                setErrors({});
-                console.log('Todo-uppgift är skapad', todoData);
-                setTodoData({
-                    title: '',
-                    description: '',
-                    status: 'Ej påbörjad'
-                });
-            }
-
         } catch (errors) {
             const validationErrors: ErrorData = {};
 
