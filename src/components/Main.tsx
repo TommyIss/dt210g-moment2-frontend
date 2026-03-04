@@ -32,7 +32,11 @@ function Main() {
       } else {
         const data = await response.json();
 
-        setTodos(data.todos);
+        const sortedData = [...data.todos].sort((a: TodoInterface, b:TodoInterface) => 
+            new Date(b.created_at ?? 0).getTime() - new Date(a.created_at ?? 0).getTime()
+          );
+
+        setTodos(sortedData);
       }
     } catch (error) {
       console.error("Fel vid hämtning av data", error);
@@ -61,7 +65,12 @@ function Main() {
       } else {
         const newData = await response.json();
 
-        setTodos((prev) => [...prev, newData.todo]);
+        
+
+        setTodos((prev) => 
+          [...prev, newData.todo].sort((a: TodoInterface, b: TodoInterface) => 
+          b.id - a.id
+        ));
 
       }
     } catch (error) {

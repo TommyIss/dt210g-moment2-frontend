@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import type { TodoInterface } from "../interfaces/TodoInterface";
 import TodoRow from "./TodoRow";
 
@@ -37,7 +36,7 @@ function TodosTable({
       <tbody>
         {loading && (
           <tr>
-            <td colSpan={4}>Laddar uppgifterna</td>
+            <td colSpan={4}><em>Laddar uppgifterna...</em></td>
           </tr>
         )}
         {todos.map((todo) => (

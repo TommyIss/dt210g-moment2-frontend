@@ -1,0 +1,43 @@
+/* Formulär */
+form {
+    background-color: #FFB2B2;
+    box-shadow: 1px 2px 2px 2px lightgray;
+    padding: 2%;
+    border-collapse: collapse;
+}
+
+input[type="text"],
+textarea {
+    width: 25%;
+}
+
+input,
+textarea,
+select {
+    margin-bottom: 2%;
+    font-size: 1.1em;
+    padding: 1%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+select {
+    background-color: #FFF2D0;
+    color: #E36A6A;
+    margin: 2%;
+}
+
+#description {
+
+    max-width: 75%;
+}
+
+@media (max-width: 600px) {
+ 
+    form input[type="text"],
+    textarea {
+        width: 70%;
+    }
+
+}

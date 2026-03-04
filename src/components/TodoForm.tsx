@@ -3,6 +3,7 @@ import type { TodoInterface } from "../interfaces/TodoInterface";
 import type { TodoStatus } from "../interfaces/TodoInterface";
 import type { ErrorData } from "../interfaces/ErrorData";
 import * as Yup from "yup";
+import './TodoForm.css'
 
 interface TodoFormProp {
     addTodo: (todo: Omit<TodoInterface, 'id' | 'created_at' | 'updated_at'>) => Promise<void>;
@@ -22,8 +23,8 @@ function TodoForm({addTodo}: TodoFormProp) {
 
     // Skapa validerings schema
     const validationSchema = Yup.object({
-        title: Yup.string().required('Fyll i todo-titel').min(3),
-        description: Yup.string().optional().max(200),
+        title: Yup.string().required('Fyll i todo-titel').min(3, 'Titeln måste vara minst 3 tecken lång'),
+        description: Yup.string().optional().max(200, 'Beskrivningen skall vara max 200 tecken lång'),
         status: Yup.string().required('Välj status från lista')
     })
 
@@ -72,6 +73,8 @@ function TodoForm({addTodo}: TodoFormProp) {
             <label htmlFor="description">Beskrivning:</label>
             <br />
             <textarea 
+            rows={3}
+            cols={20}
             name="description" 
             id="description"
             value={todoData.description}

@@ -1,7 +1,7 @@
 function Header() {
     return (
         <header>
-            <h1>Moment2</h1>
+            <h1>Moment 2</h1>
         </header>
     )
 }
