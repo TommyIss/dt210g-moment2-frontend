@@ -25,7 +25,7 @@ function TodoForm({addTodo}: TodoFormProp) {
     const validationSchema = Yup.object({
         title: Yup.string().required('Fyll i todo-titel').min(3, 'Titeln måste vara minst 3 tecken lång'),
         description: Yup.string().optional().max(200, 'Beskrivningen skall vara max 200 tecken lång'),
-        status: Yup.string().required('Välj status från lista')
+        status: Yup.string().required('Välj status från lista').oneOf(['Ej påbörjad', 'Pågående', 'Avklarad'], 'Välj en giltig status')
     })
 
     async function submitForm(event: any) {
@@ -38,6 +38,12 @@ function TodoForm({addTodo}: TodoFormProp) {
 
             
             await addTodo(todoData);
+
+            setTodoData({
+                title: '',
+                description: '',
+                status: 'Ej påbörjad'
+            });
             
         } catch (errors) {
             const validationErrors: ErrorData = {};

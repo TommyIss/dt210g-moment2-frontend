@@ -39,6 +39,11 @@ function TodosTable({
             <td colSpan={4}><em>Laddar uppgifterna...</em></td>
           </tr>
         )}
+        {
+          !loading && todos.length === 0 && <tr>
+            <td colSpan={4}><em>Inga uppgifter är tillagda...</em></td>
+          </tr>
+        }
         {todos.map((todo) => (
           <TodoRow
             id={todo.id}
@@ -52,6 +57,7 @@ function TodosTable({
             deleteTodo={removeTodo}
           />
         ))}
+        
 
       </tbody>
     </table>
